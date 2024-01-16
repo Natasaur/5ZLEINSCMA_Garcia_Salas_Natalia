@@ -1,0 +1,19 @@
+Cómo linkear un repositorio a github con git
+
+git init
+inizializa el repositorio
+
+git add .
+Guarda todos los cambios de todos los archivos del repositorio
+
+
+Cuando sea la primera vez que se configura un repositorio se usan
+
+git config --global user.name 
+"NombreUsuario" 
+git config -- global user.email
+"email"
+
+
+
+
