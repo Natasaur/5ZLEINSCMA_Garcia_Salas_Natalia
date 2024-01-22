@@ -14,7 +14,7 @@ public class HolaMundo {
      * metodos por tipo de dato - int, float, void, string, etc
      */
 
-     /*Los objetos son instancias (invocaciones - llamado) la construccion abstracta del objeto
+     /*Los objetos son instancias (invocaciones - llamado - mandar a llamar) la construccion abstracta del objeto
      Las caracteristicas del objeto son los atributos de la clase
      los metodos son las habilidades o funciones del objeto      
      */
