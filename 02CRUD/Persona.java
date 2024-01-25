@@ -29,6 +29,20 @@ public void setId(int id){
     this.id = id;
 }
 
+public int getNombre(){
+    return nombre;
+}
+public void setNombre(String nombre){
+    this.nombre = nombre;
+}
+
+public int getEdad(){
+    return edad;
+}
+public void setEdad(int edad){
+    this.edad = edad;
+}
+
 //funcion retorna un resultado, el método puede o no dar un resultado
 
 /*
