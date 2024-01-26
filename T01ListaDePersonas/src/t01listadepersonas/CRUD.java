@@ -17,6 +17,13 @@ public class CRUD extends javax.swing.JFrame {
     int edad;
     String resultado = "";
     ArrayList<String> historial;
+    /*
+    historial.set(0,"ID :1\t Nombre: Natalia\t Edad: 23");
+        historial.set(1,"ID :2\t Nombre: Natali\t Edad: 24");
+        historial.set(2,"ID :3\t Nombre: Natal\t Edad: 25");
+        historial.set(3,"ID :4\t Nombre: Nata\t Edad: 26");
+        historial.set(4,"ID :5\t Nombre: Nat\t Edad: 27");
+    */
 
     /**
      * Creates new form CRUD
@@ -224,6 +231,12 @@ public class CRUD extends javax.swing.JFrame {
          int idAModificar = Integer.parseInt(txtID.getText());
         String nuevoNombre = txtNombre.getText();
         int nuevaEdad = Integer.parseInt(txtEdad.getText());
+        
+        historial.set(0,"ID :1\t Nombre: Natalia\t Edad: 23");
+        historial.set(1,"ID :2\t Nombre: Natali\t Edad: 24");
+        historial.set(2,"ID :3\t Nombre: Natal\t Edad: 25");
+        historial.set(3,"ID :4\t Nombre: Nata\t Edad: 26");
+        historial.set(4,"ID :5\t Nombre: Nat\t Edad: 27");
 
         for (int i = 0; i < historial.size(); i++) {
             String[] partes = historial.get(i).split("\t");
