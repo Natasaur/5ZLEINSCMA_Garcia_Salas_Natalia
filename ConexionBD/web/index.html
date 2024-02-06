@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<!--
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit this template
+-->
+<html>
+    <head>
+        <title>Mi primera conexion</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+    </head>
+    <body>
+        <div><!<!-- Crea un divisor -->
+            <form name="formulario"
+                  action ="Registro"
+                method="get">
+                <!-- Con get se visualizan los datos a enviar -->
+                <!-- Con post se ocultan los daot a enviar -->
+                <label>Nombre: </label>
+                <br>
+                <input type="text"
+                       name="nombre">
+                <br>
+                <label>Apellido Paterno: </label>
+                <br>
+                <input type="text"
+                       name="appat">
+                <br>
+                <label>Apellido Materno: </label>
+                <br>
+                <input type="text"
+                       name="apmat">
+                <br>
+                <label>Edad: </label>
+                <br>
+                <input type="text"
+                       name="edad">
+                <br>
+                <input type="submit" name="enviar"
+                       value="Registrar Alumno">
+                <input type="reset" name="borrar"
+                       value="Borrar datos">
+            </form>
+        </div>
+    </body>
+</html>

@@ -48,7 +48,9 @@ public class Funciones {
                         pedirDatosAlumno(); //Paradigma Interpretado
                         alumno = new Alumno(bol,nombre,edad);
                         guardarAlumno();
-                        
+                        break;
+                    case 2:
+                        leerAlumnos();
                         break;
                     default:
                         System.out.println("Opción no válida");
@@ -71,6 +73,8 @@ public class Funciones {
     private void guardarAlumno(){
         listapersonas.add(alumno);
     }
+    
+    
     
     //Método para leer un archivo
     private void leerAlumnos() throws Exception{
