@@ -48,8 +48,8 @@ public class Registro extends HttpServlet {
         //En este caso el servicio de la base de datos
         String url = "jdbc:mysql:3306//localhost/registroalumnos"; //java data base controller
                     //controlador:motorbd:puerto//IP/nombrebd
-        String username = "";
-        String password = "";
+        String username = "Natasaur";
+        String password = "Pikachu_2231";
         
         try{
             //Vamos a intentar conectarnos a la base de datos

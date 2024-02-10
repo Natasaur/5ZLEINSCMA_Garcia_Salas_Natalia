@@ -7,11 +7,15 @@
  *
  * @author jakeg
  */
+import java.awt.Desktop;
+import java.io.File;
 import javax.swing.*;
-import java.util.*;
+//import java.util.*;
 
 public class DatosEncabezadoFrame extends JFrame {
-    
+    private int numReporte,numMuestras;
+    private String modelo;
+    /*
     int numReporte,numMuestras,puntos;
     double total = 0;
     String modelo;
@@ -19,12 +23,13 @@ public class DatosEncabezadoFrame extends JFrame {
     double[] valores = new double[11];
     ArrayList<Lista> listadedatos = new ArrayList();
     ArrayList<Tabla> tablas = new ArrayList();
+    */
     
     public DatosEncabezadoFrame() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
-    
     @SuppressWarnings("checked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -34,53 +39,38 @@ public class DatosEncabezadoFrame extends JFrame {
         numReporteLabel = new javax.swing.JLabel();
         modeloLabel = new javax.swing.JLabel();
         numMuestreoLabel = new javax.swing.JLabel();
-        puntosAMedirLabel = new javax.swing.JLabel();
         numReporteField = new javax.swing.JTextField();
         modeloField = new javax.swing.JTextField();
         numMuestreoField = new javax.swing.JTextField();
-        numPuntosAMedirField = new javax.swing.JTextField();
-        guardarButton = new javax.swing.JButton();
         borrarButton = new javax.swing.JButton();
         agregarTablaButton = new javax.swing.JButton();
+        salirButton = new javax.swing.JButton();
+        abrirPDFButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 800, 500));
         setMinimumSize(new java.awt.Dimension(800, 500));
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setSize(new java.awt.Dimension(800, 500));
 
         principalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleLabel.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         titleLabel.setText("Plantilla Inspección de Medidas");
-        principalPanel.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 30, -1, -1));
+        principalPanel.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
 
         numReporteLabel.setText("No. de Reporte:");
         principalPanel.add(numReporteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         modeloLabel.setText("Modelo: ");
-        principalPanel.add(modeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, -1));
+        principalPanel.add(modeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
 
         numMuestreoLabel.setText("Muestreo de Prendas:");
-        principalPanel.add(numMuestreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 200, -1, -1));
-
-        puntosAMedirLabel.setText("Puntos a medir:");
-        principalPanel.add(puntosAMedirLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 290, -1, -1));
+        principalPanel.add(numMuestreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
 
         numReporteField.setPreferredSize(new java.awt.Dimension(150, 30));
         principalPanel.add(numReporteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 150, 30));
-        principalPanel.add(modeloField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 150, 30));
-        principalPanel.add(numMuestreoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, 150, 30));
-        principalPanel.add(numPuntosAMedirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 310, 150, 30));
-
-        guardarButton.setText("Guardar Parámetros");
-        guardarButton.setPreferredSize(new java.awt.Dimension(150, 70));
-        guardarButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                guardarButtonActionPerformed(evt);
-            }
-        });
-        principalPanel.add(guardarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 160, 70));
+        principalPanel.add(modeloField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 150, 30));
+        principalPanel.add(numMuestreoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 150, 30));
 
         borrarButton.setText("Borrar");
         borrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -88,7 +78,7 @@ public class DatosEncabezadoFrame extends JFrame {
                 borrarButtonActionPerformed(evt);
             }
         });
-        principalPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 160, 70));
+        principalPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, 30));
 
         agregarTablaButton.setText("Agregar Tabla");
         agregarTablaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -96,37 +86,49 @@ public class DatosEncabezadoFrame extends JFrame {
                 agregarTablaButtonActionPerformed(evt);
             }
         });
-        principalPanel.add(agregarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 160, 160, 70));
+        principalPanel.add(agregarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
+
+        salirButton.setText("Salir");
+        salirButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirButtonActionPerformed(evt);
+            }
+        });
+        principalPanel.add(salirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 120, 30));
+
+        abrirPDFButton.setText("Abrir PDF");
+        abrirPDFButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPDFButtonActionPerformed(evt);
+            }
+        });
+        principalPanel.add(abrirPDFButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
+            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
 
-    private void guardarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarButtonActionPerformed
-        numReporte = Integer.parseInt(numReporteField.getText());
-        numMuestras = Integer.parseInt(numMuestreoField.getText());
-        puntos = Integer.parseInt(numPuntosAMedirField.getText());
-        modelo = modeloField.getText();
-        borrar();
-    }//GEN-LAST:event_guardarButtonActionPerformed
-
     private void borrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarButtonActionPerformed
         borrar();
     }//GEN-LAST:event_borrarButtonActionPerformed
 
     private void agregarTablaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarTablaButtonActionPerformed
-        String[] puntosAMedir = new String[puntos];
+        DatosPruebaFrame NewDatosFrame = new DatosPruebaFrame();
+        NewDatosFrame.setVisible(true);
+        NewDatosFrame.setLocationRelativeTo(null);
+        this.dispose();
+        /*String[] puntosAMedir = new String[puntos];
         for(int i = 0; i < numMuestras;i++){
             for(int n = 0;n < 10;n++){
                 colores[n] = JOptionPane.showInputDialog("Ingrese el color de la columna " + (n+1));
@@ -173,6 +175,7 @@ public class DatosEncabezadoFrame extends JFrame {
                 System.out.print(a + "   ");
             }
             System.out.println();
+            */
         
         
         //Probar si los datos están bien guardados
@@ -203,6 +206,8 @@ public class DatosEncabezadoFrame extends JFrame {
          *              para el segundo punto a medir
          * Posición 2: etc........
          **/
+        
+        /*
         String[] encabezado = new String[];
         for(int i = 0;i < tablas.size();i++){
            Tabla imptabla = tablas.get(i);
@@ -228,28 +233,72 @@ public class DatosEncabezadoFrame extends JFrame {
            System.out.println();
            System.out.println();
         }
+*/
     }//GEN-LAST:event_agregarTablaButtonActionPerformed
+
+    private void salirButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirButtonActionPerformed
+        // Salir
+        this.dispose();
+    }//GEN-LAST:event_salirButtonActionPerformed
+
+    private void abrirPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPDFButtonActionPerformed
+        abrir(modelo);
+    }//GEN-LAST:event_abrirPDFButtonActionPerformed
 
     public void borrar(){
         numReporteField.setText("");
         numMuestreoField.setText("");
-        numPuntosAMedirField.setText("");
         modeloField.setText("");
+    }
+    
+    public void abrir(String modelo){
+        try{
+            File path = new File(modelo + ".pdf");
+            Desktop.getDesktop().open(path);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex,"Error: ",2);
+        }
+    }
+    
+    public DatosEncabezadoFrame(int numReporte,int numMuestras,String modelo){
+        this.numReporte = numReporte;
+        this.numMuestras = numMuestras;
+        this.modelo = modelo;
+    }
+    
+    public int getNumReporte(){
+        return numReporte;
+    }
+    public void setNumReporte(int numReporte){
+        this.numReporte = numReporte;
+    }
+    
+    public int getNumMuestras(){
+        return numMuestras;
+    }
+    public void setNumMuestras(int numMuestras){
+        this.numMuestras = numMuestras;
+    }
+    
+    public String getModelo(){
+        return modelo;
+    }
+    public void setModelo(String modelo){
+        this.modelo = modelo;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton abrirPDFButton;
     private javax.swing.JButton agregarTablaButton;
     private javax.swing.JButton borrarButton;
-    private javax.swing.JButton guardarButton;
     private javax.swing.JTextField modeloField;
     private javax.swing.JLabel modeloLabel;
     private javax.swing.JTextField numMuestreoField;
     private javax.swing.JLabel numMuestreoLabel;
-    private javax.swing.JTextField numPuntosAMedirField;
     private javax.swing.JTextField numReporteField;
     private javax.swing.JLabel numReporteLabel;
     private javax.swing.JPanel principalPanel;
-    private javax.swing.JLabel puntosAMedirLabel;
+    private javax.swing.JButton salirButton;
     private javax.swing.JLabel titleLabel;
     // End of variables declaration//GEN-END:variables
 

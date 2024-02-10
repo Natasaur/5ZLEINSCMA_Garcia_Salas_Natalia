@@ -8,14 +8,26 @@
  * @author jakeg
  */
 import javax.swing.*;
+import java.util.*;
+import javax.swing.table.*;
+
 public class DatosPruebaFrame extends JFrame {
-    int puntos,numValores,numColores;
+    int numReporte,numMuestras;
+    String modelo;
+    double total;
+    Fila newFila = new Fila();
+    List<Fila> listaResultados = new ArrayList<>();
+    DefaultTableModel TablaMuestreo;
+    DatosEncabezadoFrame NewDatosEncabezadoFrame = new DatosEncabezadoFrame();
+    
     public DatosPruebaFrame() {
         setTitle("Registro de Datos");
-        //setSize(400, 250);
-        //setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         initComponents();
+        TablaMuestreo = (DefaultTableModel) TablaResultados.getModel();
+        numReporte = NewDatosEncabezadoFrame.getNumReporte();
+        numMuestras = NewDatosEncabezadoFrame.getNumMuestras();
+        modelo = NewDatosEncabezadoFrame.getModelo();
     }
 
     /**
@@ -29,15 +41,29 @@ public class DatosPruebaFrame extends JFrame {
 
         datosPanel = new javax.swing.JPanel();
         registroDatosLabel = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        puntosAMedirField = new javax.swing.JTextField();
-        registrarPuntosButton = new javax.swing.JButton();
-        valoresButton = new javax.swing.JButton();
-        coloresButton = new javax.swing.JButton();
+        puntosamedirLabel = new javax.swing.JLabel();
+        stdLabel = new javax.swing.JLabel();
+        tolLabel = new javax.swing.JLabel();
         valoresLabel = new javax.swing.JLabel();
-        valoresField = new javax.swing.JTextField();
-        coloresLabel = new javax.swing.JLabel();
-        coloresField = new javax.swing.JTextField();
+        puntosamedirField = new javax.swing.JTextField();
+        stdField = new javax.swing.JTextField();
+        tolField = new javax.swing.JTextField();
+        v1Field = new javax.swing.JTextField();
+        v2Field = new javax.swing.JTextField();
+        v3Field = new javax.swing.JTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        TablaResultados = new javax.swing.JTable();
+        v4Field = new javax.swing.JTextField();
+        v5Field = new javax.swing.JTextField();
+        v6Field = new javax.swing.JTextField();
+        v7Field = new javax.swing.JTextField();
+        v10Field = new javax.swing.JTextField();
+        v9Field = new javax.swing.JTextField();
+        v8Field = new javax.swing.JTextField();
+        agregarfilaButton = new javax.swing.JButton();
+        borrarButton = new javax.swing.JButton();
+        regresarButton = new javax.swing.JButton();
+        guardarTablaButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,75 +71,187 @@ public class DatosPruebaFrame extends JFrame {
 
         registroDatosLabel.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         registroDatosLabel.setText("Registro de Datos");
-        datosPanel.add(registroDatosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 10, 240, 40));
+        datosPanel.add(registroDatosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 240, 40));
 
-        jLabel1.setText("Puntos a medir:");
-        datosPanel.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, -1, -1));
-        datosPanel.add(puntosAMedirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 60, 120, 30));
+        puntosamedirLabel.setText("Puntos a medir:");
+        datosPanel.add(puntosamedirLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
 
-        registrarPuntosButton.setText("Registrar");
-        registrarPuntosButton.addActionListener(new java.awt.event.ActionListener() {
+        stdLabel.setText("std:");
+        datosPanel.add(stdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
+
+        tolLabel.setText("tol:");
+        datosPanel.add(tolLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, -1, -1));
+
+        valoresLabel.setText("Valores:");
+        datosPanel.add(valoresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 370, -1, -1));
+        datosPanel.add(puntosamedirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 150, -1));
+        datosPanel.add(stdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 60, -1));
+        datosPanel.add(tolField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 60, -1));
+        datosPanel.add(v1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, 30, -1));
+        datosPanel.add(v2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 30, -1));
+        datosPanel.add(v3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 30, -1));
+
+        TablaResultados.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Puntos a Medir", "std", "tol", "", "", "", "", "", "", "", "", "", "", "Total"
+            }
+        ));
+        jScrollPane1.setViewportView(TablaResultados);
+        if (TablaResultados.getColumnModel().getColumnCount() > 0) {
+            TablaResultados.getColumnModel().getColumn(0).setPreferredWidth(250);
+            TablaResultados.getColumnModel().getColumn(13).setPreferredWidth(100);
+        }
+
+        datosPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 770, 320));
+        datosPanel.add(v4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 30, -1));
+        datosPanel.add(v5Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 390, 30, -1));
+        datosPanel.add(v6Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 390, 30, -1));
+        datosPanel.add(v7Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 30, -1));
+        datosPanel.add(v10Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 390, 30, -1));
+        datosPanel.add(v9Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 30, -1));
+        datosPanel.add(v8Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, 30, -1));
+
+        agregarfilaButton.setText("Agregar Fila");
+        agregarfilaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                registrarPuntosButtonActionPerformed(evt);
+                agregarfilaButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(registrarPuntosButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 60, 150, 30));
+        datosPanel.add(agregarfilaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 120, 30));
 
-        valoresButton.setText("Ingresar Valores");
-        valoresButton.addActionListener(new java.awt.event.ActionListener() {
+        borrarButton.setText("Borrar");
+        borrarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                valoresButtonActionPerformed(evt);
+                borrarButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(valoresButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 150, 30));
+        datosPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 120, 30));
 
-        coloresButton.setText("Ingresar Colores");
-        datosPanel.add(coloresButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 160, 150, 30));
+        regresarButton.setText("Regresar");
+        regresarButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                regresarButtonActionPerformed(evt);
+            }
+        });
+        datosPanel.add(regresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 440, 120, 30));
 
-        valoresLabel.setText("Valores a ingresar:");
-        datosPanel.add(valoresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-        datosPanel.add(valoresField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 120, 30));
-
-        coloresLabel.setText("Colores a Ingresar:");
-        datosPanel.add(coloresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, -1, -1));
-        datosPanel.add(coloresField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 160, 120, 30));
+        guardarTablaButton.setText("Guardar Tabla");
+        guardarTablaButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarTablaButtonActionPerformed(evt);
+            }
+        });
+        datosPanel.add(guardarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, 120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(datosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
+            .addComponent(datosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(datosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
+            .addComponent(datosPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 500, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void registrarPuntosButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registrarPuntosButtonActionPerformed
-        puntos = Integer.parseInt(puntosAMedirField.getText());
-        puntosAMedirField.setText("");
+    private void agregarfilaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarfilaButtonActionPerformed
+        newFila.setPuntoAMedir(puntosamedirField.getText());
+        newFila.setStd(stdField.getText());
+        newFila.setTol(tolField.getText());
+        newFila.setV1(Double.parseDouble(v1Field.getText()));
+        newFila.setV2(Double.parseDouble(v2Field.getText()));
+        newFila.setV3(Double.parseDouble(v3Field.getText()));
+        newFila.setV4(Double.parseDouble(v4Field.getText()));
+        newFila.setV5(Double.parseDouble(v5Field.getText()));
+        newFila.setV6(Double.parseDouble(v6Field.getText()));
+        newFila.setV7(Double.parseDouble(v7Field.getText()));
+        newFila.setV8(Double.parseDouble(v8Field.getText()));
+        newFila.setV9(Double.parseDouble(v9Field.getText()));
+        newFila.setV10(Double.parseDouble(v10Field.getText()));
+        total = newFila.getV1()+newFila.getV2()+newFila.getV3()+newFila.getV4()
+                +newFila.getV5()+newFila.getV6()+newFila.getV7()+newFila.getV8()
+                +newFila.getV9()+newFila.getV10();
+        newFila.setTotal(total);
         
-        
-    }//GEN-LAST:event_registrarPuntosButtonActionPerformed
+        listaResultados.add(newFila);
+        TablaMuestreo.addRow(new Object[] {newFila.getPuntoAMedir(),
+            newFila.getStd(),newFila.getStd(),newFila.getV1(),newFila.getV2(),
+            newFila.getV3(),newFila.getV4(),newFila.getV5(),newFila.getV6(),
+            newFila.getV7(),newFila.getV8(),newFila.getV9(),newFila.getV10(),
+            newFila.getTotal()});
+        borrar();
+    }//GEN-LAST:event_agregarfilaButtonActionPerformed
 
-    private void valoresButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_valoresButtonActionPerformed
-        
-    }//GEN-LAST:event_valoresButtonActionPerformed
+    private void borrarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_borrarButtonActionPerformed
+        borrar();
+    }//GEN-LAST:event_borrarButtonActionPerformed
 
+    private void regresarButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_regresarButtonActionPerformed
+        //Regresar
+        NewDatosEncabezadoFrame.setVisible(true);
+        NewDatosEncabezadoFrame.setLocationRelativeTo(null);
+        this.dispose();
+    }//GEN-LAST:event_regresarButtonActionPerformed
+
+    private void guardarTablaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarTablaButtonActionPerformed
+        //Genera un pdf con la tabla
+        PlantillaPDF newPlantilla = new PlantillaPDF(
+                NewDatosEncabezadoFrame.getModelo(),
+                new Date().toString(),
+                NewDatosEncabezadoFrame.getNumReporte(),
+            NewDatosEncabezadoFrame.getNumMuestras(),
+                listaResultados);
+        newPlantilla.crearPlantilla();
+    }//GEN-LAST:event_guardarTablaButtonActionPerformed
+
+    public void borrar(){
+        puntosamedirField.setText("");
+        stdField.setText("");
+        tolField.setText("");
+        v1Field.setText("");
+        v2Field.setText("");
+        v3Field.setText("");
+        v4Field.setText("");
+        v5Field.setText("");
+        v6Field.setText("");
+        v7Field.setText("");
+        v8Field.setText("");
+        v9Field.setText("");
+        v10Field.setText("");
+    }
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton coloresButton;
-    private javax.swing.JTextField coloresField;
-    private javax.swing.JLabel coloresLabel;
+    private javax.swing.JTable TablaResultados;
+    private javax.swing.JButton agregarfilaButton;
+    private javax.swing.JButton borrarButton;
     private javax.swing.JPanel datosPanel;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField puntosAMedirField;
-    private javax.swing.JButton registrarPuntosButton;
+    private javax.swing.JButton guardarTablaButton;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextField puntosamedirField;
+    private javax.swing.JLabel puntosamedirLabel;
     private javax.swing.JLabel registroDatosLabel;
-    private javax.swing.JButton valoresButton;
-    private javax.swing.JTextField valoresField;
+    private javax.swing.JButton regresarButton;
+    private javax.swing.JTextField stdField;
+    private javax.swing.JLabel stdLabel;
+    private javax.swing.JTextField tolField;
+    private javax.swing.JLabel tolLabel;
+    private javax.swing.JTextField v10Field;
+    private javax.swing.JTextField v1Field;
+    private javax.swing.JTextField v2Field;
+    private javax.swing.JTextField v3Field;
+    private javax.swing.JTextField v4Field;
+    private javax.swing.JTextField v5Field;
+    private javax.swing.JTextField v6Field;
+    private javax.swing.JTextField v7Field;
+    private javax.swing.JTextField v8Field;
+    private javax.swing.JTextField v9Field;
     private javax.swing.JLabel valoresLabel;
     // End of variables declaration//GEN-END:variables
 }
