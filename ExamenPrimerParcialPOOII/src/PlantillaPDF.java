@@ -18,6 +18,7 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
@@ -25,6 +26,7 @@ public class PlantillaPDF {
     private String modelo,fecha;
     private int numReporte,muestreoPrendas;
     private List<Fila> listaResultados;
+    int tamaño = 3;
     
     Document documento;
     FileOutputStream archivo;
@@ -38,7 +40,7 @@ public class PlantillaPDF {
             String fecha,
             int numReporte,
             int muestreoPrendas,
-            List listaResultados){
+            List<Fila> listaResultados){
         this.modelo = modelo;
         this.fecha = fecha;
         this.numReporte = numReporte;
@@ -47,6 +49,7 @@ public class PlantillaPDF {
         
         documento = new Document();
         titulo = new Paragraph("Inspección de Medidas");
+        //listaResultados = new ArrayList<>();
     }
     
     public void crearPlantilla(){
@@ -57,55 +60,59 @@ public class PlantillaPDF {
             titulo.setAlignment(1);
             
             documento.add(titulo);
-            documento.add(new Paragraph("Modelo: " + this.getModelo() + "   "
-                    +"Número de Reporte: " + this.getNumReporte() + "   "
+            documento.add(new Paragraph("Modelo:  " + this.getModelo() + "     "
+                    +"Número de Reporte: " + this.getNumReporte() + "     "
                     +"Fecha de Inspección: " + this.getFecha()));
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("         " + "No. de Muestras: " + this.getMuestreoPrendas()));
             documento.add(Chunk.NEWLINE);
             
             PdfPTable tabla = new PdfPTable(14);
+            tabla.setWidths(new float[]{8,3,3,3,3,3,3,3,3,3,3,3,3,5});
             tabla.setWidthPercentage(100);
+            
             PdfPCell puntos = new PdfPCell(new Phrase("Puntos a medir"));
-            puntos.setBorder(1);
-            puntos.setBackgroundColor(BaseColor.BLUE);
+            puntos.setBorder(tamaño);
+            puntos.setBackgroundColor(BaseColor.YELLOW);
             PdfPCell std = new PdfPCell(new Phrase("std"));
-            std.setBorder(1);
-            std.setBackgroundColor(BaseColor.BLUE);
+            std.setBorder(tamaño);
+            std.setBackgroundColor(BaseColor.YELLOW);
             PdfPCell tol = new PdfPCell(new Phrase("tol"));
-            tol.setBorder(1);
-            tol.setBackgroundColor(BaseColor.BLUE);
+            tol.setBorder(tamaño);
+            tol.setBackgroundColor(BaseColor.YELLOW);
             PdfPCell v1 = new PdfPCell();
-            v1.setBorder(1);
+            v1.setBorder(tamaño);
             v1.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v2 = new PdfPCell();
-            v2.setBorder(1);
+            v2.setBorder(tamaño);
             v2.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v3 = new PdfPCell();
-            v3.setBorder(1);
+            v3.setBorder(tamaño);
             v3.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v4 = new PdfPCell();
-            v4.setBorder(1);
+            v4.setBorder(tamaño);
             v4.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v5 = new PdfPCell();
-            v5.setBorder(1);
+            v5.setBorder(tamaño);
             v5.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v6 = new PdfPCell();
-            v6.setBorder(1);
+            v6.setBorder(tamaño);
             v6.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v7 = new PdfPCell();
-            v7.setBorder(1);
+            v7.setBorder(tamaño);
             v7.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v8 = new PdfPCell();
-            v8.setBorder(1);
+            v8.setBorder(tamaño);
             v8.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v9 = new PdfPCell();
-            v9.setBorder(1);
+            v9.setBorder(tamaño);
             v9.setBackgroundColor(BaseColor.BLUE);
             PdfPCell v10 = new PdfPCell();
-            v10.setBorder(1);
+            v10.setBorder(tamaño);
             v10.setBackgroundColor(BaseColor.BLUE);
             PdfPCell total = new PdfPCell(new Phrase("Total"));
-            total.setBorder(1);
-            total.setBackgroundColor(BaseColor.BLUE);
+            total.setBorder(tamaño);
+            total.setBackgroundColor(BaseColor.YELLOW);
             
             tabla.addCell(puntos);
             tabla.addCell(std);
@@ -122,31 +129,41 @@ public class PlantillaPDF {
             tabla.addCell(v10);
             tabla.addCell(total);
             
-            for(Fila fila: listaResultados){
-                tabla.addCell(fila.getPuntoAMedir());
-                tabla.addCell(fila.getStd());
-                tabla.addCell(fila.getTol());
-                tabla.addCell(fila.getV1()+"");
-                tabla.addCell(fila.getV2()+"");
-                tabla.addCell(fila.getV3()+"");
-                tabla.addCell(fila.getV4()+"");
-                tabla.addCell(fila.getV5()+"");
-                tabla.addCell(fila.getV6()+"");
-                tabla.addCell(fila.getV7()+"");
-                tabla.addCell(fila.getV8()+"");
-                tabla.addCell(fila.getV9()+"");
-                tabla.addCell(fila.getV10()+"");
-                tabla.addCell(fila.getTotal()+"");
+            for(Fila nfila: this.listaResultados){
+                tabla.addCell(nfila.getPuntoAMedir());
+                tabla.addCell(nfila.getStd());
+                tabla.addCell(nfila.getTol());
+                tabla.addCell(nfila.getV1()+"");
+                tabla.addCell(nfila.getV2()+"");
+                tabla.addCell(nfila.getV3()+"");
+                tabla.addCell(nfila.getV4()+"");
+                tabla.addCell(nfila.getV5()+"");
+                tabla.addCell(nfila.getV6()+"");
+                tabla.addCell(nfila.getV7()+"");
+                tabla.addCell(nfila.getV8()+"");
+                tabla.addCell(nfila.getV9()+"");
+                tabla.addCell(nfila.getV10()+"");
+                tabla.addCell(nfila.getTotal()+"");
             }
+            
             documento.add(tabla);
+            
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("                                       "
+                    + "AQL"));
+            documento.add(new Paragraph("                                       "
+                    + "AC               RE"));
+            documento.add(new Paragraph("                   "
+                    + "MAYOR: ________   ________"
+                    + "                                   "
+                    + "ACEPTADO: _____          RECHAZO: ________"));
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("FIRMA DEL PROVEEDOR: __________          FIRMA DEL INSPECTOR: __________"));
+            
             documento.close();
-            JOptionPane.showConfirmDialog(null,"PDF creado correctamente");
+            JOptionPane.showMessageDialog(null,"PDF creado correctamente");
             
-            
-            
-        }catch(FileNotFoundException e){
-            System.err.println(e.getMessage());
-        }catch(DocumentException e){
+        }catch(FileNotFoundException | DocumentException e){
             System.err.println(e.getMessage());
         }
         

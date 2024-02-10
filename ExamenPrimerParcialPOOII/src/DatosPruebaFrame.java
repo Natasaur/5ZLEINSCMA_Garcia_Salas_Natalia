@@ -7,6 +7,8 @@
  *
  * @author jakeg
  */
+import java.awt.Desktop;
+import java.io.File;
 import javax.swing.*;
 import java.util.*;
 import javax.swing.table.*;
@@ -15,8 +17,8 @@ public class DatosPruebaFrame extends JFrame {
     int numReporte,numMuestras;
     String modelo;
     double total;
-    Fila newFila = new Fila();
-    List<Fila> listaResultados = new ArrayList<>();
+    
+    List<Fila> listaResultados;
     DefaultTableModel TablaMuestreo;
     DatosEncabezadoFrame NewDatosEncabezadoFrame = new DatosEncabezadoFrame();
     
@@ -24,10 +26,13 @@ public class DatosPruebaFrame extends JFrame {
         setTitle("Registro de Datos");
         setLocationRelativeTo(null);
         initComponents();
+        
         TablaMuestreo = (DefaultTableModel) TablaResultados.getModel();
-        numReporte = NewDatosEncabezadoFrame.getNumReporte();
-        numMuestras = NewDatosEncabezadoFrame.getNumMuestras();
-        modelo = NewDatosEncabezadoFrame.getModelo();
+        listaResultados = new ArrayList<>();
+        
+        //this.numReporte = numReporte;
+        //this.numMuestras = numMuestras;
+        //this.modelo = modelo;
     }
 
     /**
@@ -64,6 +69,13 @@ public class DatosPruebaFrame extends JFrame {
         borrarButton = new javax.swing.JButton();
         regresarButton = new javax.swing.JButton();
         guardarTablaButton = new javax.swing.JButton();
+        newModeloLabel = new javax.swing.JLabel();
+        newReporteLabel = new javax.swing.JLabel();
+        newMuestrasLabel = new javax.swing.JLabel();
+        abrirPDF2Button = new javax.swing.JButton();
+        modeloLabel = new javax.swing.JLabel();
+        numReporteLabel = new javax.swing.JLabel();
+        muestreoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -74,22 +86,22 @@ public class DatosPruebaFrame extends JFrame {
         datosPanel.add(registroDatosLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 240, 40));
 
         puntosamedirLabel.setText("Puntos a medir:");
-        datosPanel.add(puntosamedirLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 370, -1, -1));
+        datosPanel.add(puntosamedirLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 410, -1, -1));
 
         stdLabel.setText("std:");
-        datosPanel.add(stdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 370, -1, -1));
+        datosPanel.add(stdLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 410, -1, -1));
 
         tolLabel.setText("tol:");
-        datosPanel.add(tolLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 370, -1, -1));
+        datosPanel.add(tolLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 410, -1, -1));
 
         valoresLabel.setText("Valores:");
-        datosPanel.add(valoresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 370, -1, -1));
-        datosPanel.add(puntosamedirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 390, 150, -1));
-        datosPanel.add(stdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, 60, -1));
-        datosPanel.add(tolField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 390, 60, -1));
-        datosPanel.add(v1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, 30, -1));
-        datosPanel.add(v2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 390, 30, -1));
-        datosPanel.add(v3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 390, 30, -1));
+        datosPanel.add(valoresLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 410, -1, -1));
+        datosPanel.add(puntosamedirField, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 430, 150, -1));
+        datosPanel.add(stdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 430, 60, -1));
+        datosPanel.add(tolField, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 430, 60, -1));
+        datosPanel.add(v1Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, 30, -1));
+        datosPanel.add(v2Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 430, 30, -1));
+        datosPanel.add(v3Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 430, 30, -1));
 
         TablaResultados.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -105,14 +117,14 @@ public class DatosPruebaFrame extends JFrame {
             TablaResultados.getColumnModel().getColumn(13).setPreferredWidth(100);
         }
 
-        datosPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 770, 320));
-        datosPanel.add(v4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 390, 30, -1));
-        datosPanel.add(v5Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 390, 30, -1));
-        datosPanel.add(v6Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 390, 30, -1));
-        datosPanel.add(v7Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, 30, -1));
-        datosPanel.add(v10Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 390, 30, -1));
-        datosPanel.add(v9Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 390, 30, -1));
-        datosPanel.add(v8Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 390, 30, -1));
+        datosPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 90, 770, 310));
+        datosPanel.add(v4Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 430, 30, -1));
+        datosPanel.add(v5Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 430, 30, -1));
+        datosPanel.add(v6Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 430, 30, -1));
+        datosPanel.add(v7Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 430, 30, -1));
+        datosPanel.add(v10Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 430, 30, -1));
+        datosPanel.add(v9Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 430, 30, -1));
+        datosPanel.add(v8Field, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 430, 30, -1));
 
         agregarfilaButton.setText("Agregar Fila");
         agregarfilaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -120,7 +132,7 @@ public class DatosPruebaFrame extends JFrame {
                 agregarfilaButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(agregarfilaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 120, 30));
+        datosPanel.add(agregarfilaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 460, 120, 30));
 
         borrarButton.setText("Borrar");
         borrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -128,7 +140,7 @@ public class DatosPruebaFrame extends JFrame {
                 borrarButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 440, 120, 30));
+        datosPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 460, 120, 30));
 
         regresarButton.setText("Regresar");
         regresarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -136,7 +148,7 @@ public class DatosPruebaFrame extends JFrame {
                 regresarButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(regresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 440, 120, 30));
+        datosPanel.add(regresarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 460, 120, 30));
 
         guardarTablaButton.setText("Guardar Tabla");
         guardarTablaButton.addActionListener(new java.awt.event.ActionListener() {
@@ -144,7 +156,33 @@ public class DatosPruebaFrame extends JFrame {
                 guardarTablaButtonActionPerformed(evt);
             }
         });
-        datosPanel.add(guardarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 440, 120, 30));
+        datosPanel.add(guardarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 460, 120, 30));
+
+        newModeloLabel.setText("jLabel1");
+        datosPanel.add(newModeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 60, 180, -1));
+
+        newReporteLabel.setText("jLabel1");
+        datosPanel.add(newReporteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 60, 90, -1));
+
+        newMuestrasLabel.setText("jLabel1");
+        datosPanel.add(newMuestrasLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 60, 80, -1));
+
+        abrirPDF2Button.setText("Abrir PDF");
+        abrirPDF2Button.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                abrirPDF2ButtonActionPerformed(evt);
+            }
+        });
+        datosPanel.add(abrirPDF2Button, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 460, 120, 30));
+
+        modeloLabel.setText("Modelo:");
+        datosPanel.add(modeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 60, -1, -1));
+
+        numReporteLabel.setText("No. de Reporte:");
+        datosPanel.add(numReporteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 60, -1, -1));
+
+        muestreoLabel.setText("Muestreo de Prendas:");
+        datosPanel.add(muestreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 60, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -161,6 +199,7 @@ public class DatosPruebaFrame extends JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void agregarfilaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarfilaButtonActionPerformed
+        Fila newFila = new Fila();
         newFila.setPuntoAMedir(puntosamedirField.getText());
         newFila.setStd(stdField.getText());
         newFila.setTol(tolField.getText());
@@ -202,13 +241,17 @@ public class DatosPruebaFrame extends JFrame {
     private void guardarTablaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarTablaButtonActionPerformed
         //Genera un pdf con la tabla
         PlantillaPDF newPlantilla = new PlantillaPDF(
-                NewDatosEncabezadoFrame.getModelo(),
+                modelo,
                 new Date().toString(),
-                NewDatosEncabezadoFrame.getNumReporte(),
-            NewDatosEncabezadoFrame.getNumMuestras(),
-                listaResultados);
+                numReporte,
+                numMuestras,
+                this.listaResultados);
         newPlantilla.crearPlantilla();
     }//GEN-LAST:event_guardarTablaButtonActionPerformed
+
+    private void abrirPDF2ButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPDF2ButtonActionPerformed
+        abrir(modelo);
+    }//GEN-LAST:event_abrirPDF2ButtonActionPerformed
 
     public void borrar(){
         puntosamedirField.setText("");
@@ -226,14 +269,60 @@ public class DatosPruebaFrame extends JFrame {
         v10Field.setText("");
     }
     
+    public void abrir(String modelo){
+        try{
+            File path = new File(modelo + ".pdf");
+            Desktop.getDesktop().open(path);
+        }catch(Exception ex){
+            JOptionPane.showMessageDialog(null,ex,"Error: ",2);
+        }
+    }
+    
+    public DatosPruebaFrame(int numReporte,int numMuestras,String modelo){
+        this.numReporte = numReporte;
+        this.numMuestras = numMuestras;
+        this.modelo = modelo;
+    }
+    
+    public int getNumReporte(){
+        return numReporte;
+    }
+    public void setNumReporte(int numReporte){
+        this.numReporte = numReporte;
+        newReporteLabel.setText(numReporte+"");
+    }
+    
+    public int getNumMuestras(){
+        return numMuestras;
+    }
+    public void setNumMuestras(int numMuestras){
+        this.numMuestras = numMuestras;
+        newMuestrasLabel.setText(numMuestras+"");
+    }
+    
+    public String getModelo(){
+        return modelo;
+    }
+    public void setModelo(String modelo){
+        this.modelo = modelo;
+        newModeloLabel.setText(modelo);
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTable TablaResultados;
+    private javax.swing.JButton abrirPDF2Button;
     private javax.swing.JButton agregarfilaButton;
     private javax.swing.JButton borrarButton;
     private javax.swing.JPanel datosPanel;
     private javax.swing.JButton guardarTablaButton;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel modeloLabel;
+    private javax.swing.JLabel muestreoLabel;
+    private javax.swing.JLabel newModeloLabel;
+    private javax.swing.JLabel newMuestrasLabel;
+    private javax.swing.JLabel newReporteLabel;
+    private javax.swing.JLabel numReporteLabel;
     private javax.swing.JTextField puntosamedirField;
     private javax.swing.JLabel puntosamedirLabel;
     private javax.swing.JLabel registroDatosLabel;

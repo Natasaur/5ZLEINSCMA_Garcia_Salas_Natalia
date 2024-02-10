@@ -27,7 +27,11 @@ public class DatosEncabezadoFrame extends JFrame {
     
     public DatosEncabezadoFrame() {
         initComponents();
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
+        setSize(475, 220);
+        setVisible(true);
+        
     }
 
     @SuppressWarnings("checked")
@@ -45,32 +49,32 @@ public class DatosEncabezadoFrame extends JFrame {
         borrarButton = new javax.swing.JButton();
         agregarTablaButton = new javax.swing.JButton();
         salirButton = new javax.swing.JButton();
-        abrirPDFButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBounds(new java.awt.Rectangle(0, 0, 800, 500));
-        setMinimumSize(new java.awt.Dimension(800, 500));
-        setSize(new java.awt.Dimension(800, 500));
+        setSize(new java.awt.Dimension(460, 180));
 
+        principalPanel.setMinimumSize(new java.awt.Dimension(450, 175));
+        principalPanel.setPreferredSize(new java.awt.Dimension(450, 175));
         principalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         titleLabel.setFont(new java.awt.Font("Consolas", 1, 24)); // NOI18N
         titleLabel.setText("Plantilla Inspección de Medidas");
-        principalPanel.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 20, -1, -1));
+        principalPanel.add(titleLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         numReporteLabel.setText("No. de Reporte:");
         principalPanel.add(numReporteLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, -1, -1));
 
         modeloLabel.setText("Modelo: ");
-        principalPanel.add(modeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, -1, -1));
+        principalPanel.add(modeloLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 60, -1, -1));
 
         numMuestreoLabel.setText("Muestreo de Prendas:");
-        principalPanel.add(numMuestreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 60, -1, -1));
+        principalPanel.add(numMuestreoLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 60, -1, -1));
 
         numReporteField.setPreferredSize(new java.awt.Dimension(150, 30));
-        principalPanel.add(numReporteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 150, 30));
-        principalPanel.add(modeloField, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 150, 30));
-        principalPanel.add(numMuestreoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, 150, 30));
+        principalPanel.add(numReporteField, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 120, 30));
+        principalPanel.add(modeloField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 150, 30));
+        principalPanel.add(numMuestreoField, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 80, 120, 30));
 
         borrarButton.setText("Borrar");
         borrarButton.addActionListener(new java.awt.event.ActionListener() {
@@ -78,15 +82,15 @@ public class DatosEncabezadoFrame extends JFrame {
                 borrarButtonActionPerformed(evt);
             }
         });
-        principalPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 170, 120, 30));
+        principalPanel.add(borrarButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 130, 120, 30));
 
-        agregarTablaButton.setText("Agregar Tabla");
+        agregarTablaButton.setText("Iniciar");
         agregarTablaButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 agregarTablaButtonActionPerformed(evt);
             }
         });
-        principalPanel.add(agregarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 120, 30));
+        principalPanel.add(agregarTablaButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 120, 30));
 
         salirButton.setText("Salir");
         salirButton.addActionListener(new java.awt.event.ActionListener() {
@@ -94,25 +98,17 @@ public class DatosEncabezadoFrame extends JFrame {
                 salirButtonActionPerformed(evt);
             }
         });
-        principalPanel.add(salirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 170, 120, 30));
-
-        abrirPDFButton.setText("Abrir PDF");
-        abrirPDFButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                abrirPDFButtonActionPerformed(evt);
-            }
-        });
-        principalPanel.add(abrirPDFButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, -1));
+        principalPanel.add(salirButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 130, 120, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 464, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(principalPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(principalPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
         pack();
@@ -125,6 +121,9 @@ public class DatosEncabezadoFrame extends JFrame {
 
     private void agregarTablaButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_agregarTablaButtonActionPerformed
         DatosPruebaFrame NewDatosFrame = new DatosPruebaFrame();
+        NewDatosFrame.setNumReporte(Integer.parseInt(numReporteField.getText()));
+        NewDatosFrame.setNumMuestras(Integer.parseInt(numMuestreoField.getText()));
+        NewDatosFrame.setModelo(modeloField.getText());
         NewDatosFrame.setVisible(true);
         NewDatosFrame.setLocationRelativeTo(null);
         this.dispose();
@@ -241,10 +240,6 @@ public class DatosEncabezadoFrame extends JFrame {
         this.dispose();
     }//GEN-LAST:event_salirButtonActionPerformed
 
-    private void abrirPDFButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_abrirPDFButtonActionPerformed
-        abrir(modelo);
-    }//GEN-LAST:event_abrirPDFButtonActionPerformed
-
     public void borrar(){
         numReporteField.setText("");
         numMuestreoField.setText("");
@@ -288,7 +283,6 @@ public class DatosEncabezadoFrame extends JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton abrirPDFButton;
     private javax.swing.JButton agregarTablaButton;
     private javax.swing.JButton borrarButton;
     private javax.swing.JTextField modeloField;
