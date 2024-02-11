@@ -18,7 +18,6 @@ import com.itextpdf.text.pdf.PdfWriter;
 import com.itextpdf.text.pdf.PdfPTable;
 import java.io.FileOutputStream;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
 
