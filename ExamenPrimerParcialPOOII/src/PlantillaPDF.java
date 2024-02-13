@@ -50,9 +50,57 @@ public class PlantillaPDF {
         titulo = new Paragraph("Inspección de Medidas");
         //listaResultados = new ArrayList<>();
     }
+   
+    
+    /*
+    public void agregarEncabezado(int numReporte,String modelo, String fecha){
+        try{
+            archivo = new FileOutputStream(modelo + ".pdf");
+            PdfWriter.getInstance(documento,archivo);
+            documento.open();
+            titulo.setAlignment(1);
+            
+            documento.add(titulo);
+            documento.add(new Paragraph("Modelo:  " + modelo + "     "
+                    +"Número de Reporte: " + numReporte + "     "
+                    +"Fecha de Inspección: " + fecha));
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("         " + "No. de Muestras: " + this.getMuestreoPrendas()));
+            documento.add(Chunk.NEWLINE);
+        }catch(FileNotFoundException | DocumentException e){
+            System.err.println(e.getMessage());
+        }
+    }*/
+    
+            
+   
+    /*
+    public void agregarFinalDocumento(){
+        try{
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("                                       "
+                    + "AQL"));
+            documento.add(new Paragraph("                                       "
+                    + "AC               RE"));
+            documento.add(new Paragraph("                   "
+                    + "MAYOR: ________   ________"
+                    + "               "
+                    + "ACEPTADO: __________          RECHAZO: __________"));
+            documento.add(Chunk.NEWLINE);
+            documento.add(new Paragraph("FIRMA DEL PROVEEDOR: __________          FIRMA DEL INSPECTOR: __________"));
+            
+            documento.close();
+            JOptionPane.showMessageDialog(null,"PDF creado correctamente");
+            
+        }catch(DocumentException e){
+            System.err.println(e.getMessage());
+        }
+    }*/
     
     public void crearPlantilla(){
+    //public void agregarTabla(List<Fila> listaResultados){
         try{
+            
             archivo = new FileOutputStream(this.getModelo() + ".pdf");
             PdfWriter.getInstance(documento,archivo);
             documento.open();
@@ -65,6 +113,7 @@ public class PlantillaPDF {
             documento.add(Chunk.NEWLINE);
             documento.add(new Paragraph("         " + "No. de Muestras: " + this.getMuestreoPrendas()));
             documento.add(Chunk.NEWLINE);
+            
             
             PdfPTable tabla = new PdfPTable(14);
             tabla.setWidths(new float[]{8,3,3,3,3,3,3,3,3,3,3,3,3,5});
@@ -128,7 +177,7 @@ public class PlantillaPDF {
             tabla.addCell(v10);
             tabla.addCell(total);
             
-            for(Fila nfila: this.listaResultados){
+            for(Fila nfila: listaResultados){
                 tabla.addCell(nfila.getPuntoAMedir());
                 tabla.addCell(nfila.getStd());
                 tabla.addCell(nfila.getTol());
@@ -148,21 +197,23 @@ public class PlantillaPDF {
             documento.add(tabla);
             
             documento.add(Chunk.NEWLINE);
-            documento.add(new Paragraph("                                       "
+            documento.add(new Paragraph("         "
                     + "AQL"));
-            documento.add(new Paragraph("                                       "
+            documento.add(new Paragraph("         "
                     + "AC               RE"));
-            documento.add(new Paragraph("                   "
+            documento.add(new Paragraph("         "
                     + "MAYOR: ________   ________"
-                    + "                                   "
-                    + "ACEPTADO: _____          RECHAZO: ________"));
+                    + "                         "
+                    + "ACEPTADO: __________       RECHAZO: __________"));
             documento.add(Chunk.NEWLINE);
             documento.add(new Paragraph("FIRMA DEL PROVEEDOR: __________          FIRMA DEL INSPECTOR: __________"));
             
             documento.close();
-            JOptionPane.showMessageDialog(null,"PDF creado correctamente");
+            JOptionPane.showMessageDialog(null,"PDF creado correctamente con el nombre: " + modelo + ".pdf");
             
-        }catch(FileNotFoundException | DocumentException e){
+        
+            }catch(FileNotFoundException | DocumentException e){
+            //}catch(DocumentException e){
             System.err.println(e.getMessage());
         }
         

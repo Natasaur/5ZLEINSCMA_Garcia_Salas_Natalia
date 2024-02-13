@@ -7,10 +7,10 @@
  *
  * @author jakeg
  */
-import static javax.swing.WindowConstants.*;
 
 public class Main {
     public static void main(String args[]) {
         DatosEncabezadoFrame NewDatosEncabezadoFrame = new DatosEncabezadoFrame();
+        //NewDatosEncabezadoFrame.setVisible(true);
     }
 }
