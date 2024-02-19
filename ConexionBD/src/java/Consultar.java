@@ -5,19 +5,21 @@
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import java.sql.*;
-import javax.servlet.ServletConfig;
-
 /**
  *
  * @author jakeg
  */
-public class Registro extends HttpServlet {
+public class Consultar extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -29,11 +31,6 @@ public class Registro extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     
-    //Servlet = Código en java que da una salida en html
-    /**
-     * Vamos a conectar a una base de datos 
-    */
-    
     private Connection con;
     //com es para establecer el objeto de conexción
     private Statement set;
@@ -42,7 +39,6 @@ public class Registro extends HttpServlet {
     private ResultSet rs;
     //Este objeto es exclusivo de consultas
     
-    //Se crea un tipo de constructor
     public void init(ServletConfig scg) throws ServletException{ //ServletException porque no maneja una Exception normal
         //sirve para configurar el servicio
         //En este caso el servicio de la base de datos
@@ -68,49 +64,50 @@ public class Registro extends HttpServlet {
         
     }
     
-    
-    //Request = Petición, cuando se solicita información
-    //Response = 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            
-            //Obtener los pa´rametros del formulario
-            String nombre,appat,apmat;
-            int edad;
-            
-            nombre = request.getParameter("nombre");
-            appat = request.getParameter("appat");
-            apmat = request.getParameter("apmat");
-            edad = Integer.parseInt(request.getParameter("edad"));
-            
-            System.out.println(nombre);
-            System.out.println(appat);
-            System.out.println(apmat);
-            System.out.println(edad);
-            
-            try{
-                String g = "insert into alumno() values ('"+nombre+"',"
-                        +"'"+appat+"')";
-                
-                //Se debe preparar la sentencia
-                set.executeUpdate(q);
-                System.out.println("Registro exitoso");
-                out.println("<h1>Alumno registrado con exito</h1>");
-            }catch(Exception e){
-                
-            }
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Registro</title>");            
+            out.println("<title>Servlet Consultar</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Registro exitoso</h1>");
-            out.println("<a href='index.html'>Regresar al menu principal</a>");
+            out.println("<h1>Listado de alumnos registrados</h1>"
+                    + "<br>"
+                    + "<table border='2'>"
+                    + "<tr>"
+                    + "<th>Boleta</th>"
+            );
+            try{
+                int id,edad;
+                String nombre,appat,apmat;
+                
+                String q = "select * from alumno";
+                
+                set = con.createStatement();
+                rs = set.executeQuery(q);
+                
+                while(rs.next()){
+                    //Obtener cada dato
+                    id = rs.getInt("idAlumno");
+                    nombre = rs.getString("nom_alu");
+                    appat = rs.getString("appat_alu");
+                    apmat = rs.getString("apmat_alu");
+                    edad = rs.getInt("edad");
+                    
+                    out.println("<tr>"
+                            + "<td>"+id+"<td/>"
+                            + "<td>"+nombre+" "+appat+" "+apmat+" "+edad+"<td/>"
+                            +"</tr>");
+                }
+                rs.close();
+                set.close();
+            }catch(Exception e){
+                
+            }
             out.println("</body>");
             out.println("</html>");
         }

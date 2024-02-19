@@ -10,7 +10,7 @@
 import java.awt.Desktop;
 import java.io.File;
 import javax.swing.*;
-import java.util.*;
+//import java.util.*;
 
 public class DatosEncabezadoFrame extends JFrame {
     private int numReporte,numMuestras;
