@@ -32,13 +32,9 @@ public class Consultar extends HttpServlet {
      */
     
     private Connection con;
-    //com es para establecer el objeto de conexción
     private Statement set;
-    //El objeto statement es para poder definir las sentencias sql
-    //Crear una tabla, registrar un dato
     private ResultSet rs;
-    //Este objeto es exclusivo de consultas
-    
+        
     public void init(ServletConfig scg) throws ServletException{ //ServletException porque no maneja una Exception normal
         //sirve para configurar el servicio
         //En este caso el servicio de la base de datos
@@ -57,11 +53,10 @@ public class Consultar extends HttpServlet {
             
             System.out.println("Conexion exitosa!");
         }catch(Exception e){
-            System.out.println("no se conecto");
+            System.out.println("No se conecto a la Base de Datos");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }
-        
     }
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -80,7 +75,9 @@ public class Consultar extends HttpServlet {
                     + "<table border='2'>"
                     + "<tr>"
                     + "<th>Boleta</th>"
-            );
+                    + "<th>Nombre Completo</th>"
+                    + "<th>Edad</th>"
+                    +"</tr>");
             try{
                 int id,edad;
                 String nombre,appat,apmat;
@@ -96,18 +93,20 @@ public class Consultar extends HttpServlet {
                     nombre = rs.getString("nom_alu");
                     appat = rs.getString("appat_alu");
                     apmat = rs.getString("apmat_alu");
-                    edad = rs.getInt("edad");
+                    edad = rs.getInt("edad_alu");
                     
                     out.println("<tr>"
-                            + "<td>"+id+"<td/>"
-                            + "<td>"+nombre+" "+appat+" "+apmat+" "+edad+"<td/>"
+                            + "<td>" + id + "<td/>"
+                            + "<td>" + nombre + " " + appat + " " + apmat + "<td/>"
+                            + "<td>" + edad + "<td/>"
                             +"</tr>");
                 }
                 rs.close();
                 set.close();
-            }catch(Exception e){
-                
+            }catch(Exception e){ 
             }
+            out.println("</table>");
+            out.println("<a href='index.html'>Regresar al Menú Principal</a>");
             out.println("</body>");
             out.println("</html>");
         }

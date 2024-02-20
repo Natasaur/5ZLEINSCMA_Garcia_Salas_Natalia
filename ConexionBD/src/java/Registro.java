@@ -48,7 +48,7 @@ public class Registro extends HttpServlet {
         //En este caso el servicio de la base de datos
         String url = "jdbc:mysql:3306//localhost/registroalumnos"; //java data base controller
                     //controlador:motorbd:puerto//IP/nombrebd
-        String username = "Natasaur";
+        String userName = "root";
         String password = "Pikachu_2231";
         
         try{
@@ -56,18 +56,16 @@ public class Registro extends HttpServlet {
             url = "jdbc:mysql://localhost/registroalumnos"; //java data base controller
             Class.forName("com.mysql.jdbc.Driver");
             //Se debe obtener el objeto de coneccion
-            con = DriverManager.getConnection(url,username,password);
+            con = DriverManager.getConnection(url,userName,password);
             set = con.createStatement();
             
             System.out.println("Conexion exitosa!");
         }catch(Exception e){
-            System.out.println("no se conecto");
+            System.out.println("No se conecto a la Base de Datos");
             System.out.println(e.getMessage());
             System.out.println(e.getStackTrace());
         }
-        
     }
-    
     
     //Request = Petición, cuando se solicita información
     //Response = 
@@ -78,30 +76,27 @@ public class Registro extends HttpServlet {
             /* TODO output your page here. You may use following sample code. */
             
             //Obtener los pa´rametros del formulario
-            String nombre,appat,apmat;
-            int edad;
+            String nom,appat,apmat,ip,ipr;
+            int edad,puerto,puertor;
             
-            nombre = request.getParameter("nombre");
+            nom = request.getParameter("nombre");
             appat = request.getParameter("appat");
             apmat = request.getParameter("apmat");
             edad = Integer.parseInt(request.getParameter("edad"));
             
-            System.out.println(nombre);
+            ip = request.getLocalAddr();
+            puerto = request.getLocalPort();
+            
+            ipr = request.getRemoteAddr();
+            puertor = request.getRemotePort();
+            
+            System.out.println(nom);
             System.out.println(appat);
             System.out.println(apmat);
             System.out.println(edad);
             
-            try{
-                String g = "insert into alumno() values ('"+nombre+"',"
-                        +"'"+appat+"')";
-                
-                //Se debe preparar la sentencia
-                set.executeUpdate(q);
-                System.out.println("Registro exitoso");
-                out.println("<h1>Alumno registrado con exito</h1>");
-            }catch(Exception e){
-                
-            }
+            //Para conectar a la base de datos
+            
             
             out.println("<!DOCTYPE html>");
             out.println("<html>");
@@ -109,10 +104,25 @@ public class Registro extends HttpServlet {
             out.println("<title>Servlet Registro</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Registro exitoso</h1>");
             out.println("<a href='index.html'>Regresar al menu principal</a>");
             out.println("</body>");
             out.println("</html>");
+            
+            try{
+                String q = "insert into alumno(nom_alu,appat_alu,apmat_alu,edad_alu)"
+                        +"values ('"+nom+"',"
+                        +"'"+appat+"','"+apmat+"',"+edad+")";
+                
+                //Se debe preparar la sentencia
+                set.executeUpdate(q);
+                System.out.println("Registro exitoso");
+                out.println("<h1>Alumno registrado con exito</h1>");
+            }catch(Exception e){
+                System.out.println("Registro NO exitoso");
+                out.println("<h1>El alumno no se pudo registrar</h1>");
+                System.out.println(e.getMessage());
+                System.out.println(e.getStackTrace());
+            }
         }
     }
 
