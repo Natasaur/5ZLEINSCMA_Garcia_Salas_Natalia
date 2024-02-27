@@ -11,37 +11,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
         
     </head>
     <body>
-        <div><!<!-- Crea un divisor -->
-            <form name="formulario"
-                  action ="Registro"
-                method="get">
+        <div>   <!-- Crea un divisor -->
+            <!-- REGISTRAR -->
+            <form name="formulario" action ="Registro" method="get">
                 <!-- Con get se visualizan los datos a enviar -->
-                <!-- Con post se ocultan los daot a enviar -->
+                <!-- Con post se ocultan los datos a enviar -->
+                
+                <!-- Se crean los campos para ingresar datos -->
                 <label>Nombre: </label>
                 <br>
-                <input type="text"
-                       name="nombre">
+                <input type="text" name="nombre">
+                
                 <br>
                 <label>Apellido Paterno: </label>
                 <br>
-                <input type="text"
-                       name="appat">
+                <input type="text" name="appat">
                 <br>
+                
                 <label>Apellido Materno: </label>
                 <br>
-                <input type="text"
-                       name="apmat">
+                <input type="text" name="apmat">
                 <br>
+                
                 <label>Edad: </label>
                 <br>
-                <input type="text"
-                       name="edad">
+                <input type="text" name="edad">
                 <br>
-                <input type="submit" name="enviar"
-                       value="Registrar Alumno">
-                <input type="reset" name="borrar"
-                       value="Borrar datos">
+                
+                <input type="submit" name="enviar" value="Registrar Alumno">
+                <input type="reset" name="borrar" value="Borrar datos">
             </form>
+            
+            <!-- CONSULTAR -->
+            <br>
+            <a href="Consultar">Consultar Lista</a>
+            <br>
+            
+            <!-- ELIMINAR -->
+            <form method="get" name="delete" action="Eliminar">
+                <br>
+                <label>Ingrese la boleta del estudiantes que deseas dar de baja</label>
+                <br>
+                
+                <input type="text" name="boletaeliminada">
+                <br>
+                <input type="submit" value="Dar de Baja">
+            </form>
+                
         </div>
     </body>
 </html>

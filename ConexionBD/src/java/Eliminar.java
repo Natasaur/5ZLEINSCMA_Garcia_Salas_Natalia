@@ -19,22 +19,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jakeg
  */
-public class Consultar extends HttpServlet {
+public class Eliminar extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
     private Connection con;
     private Statement set;
     private ResultSet rs;
-        
+    
     public void init(ServletConfig scg) throws ServletException{ //ServletException porque no maneja una Exception normal
         //sirve para configurar el servicio
         //En este caso el servicio de la base de datos
@@ -58,7 +48,7 @@ public class Consultar extends HttpServlet {
             System.out.println(e.getStackTrace());
         }
     }
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -67,46 +57,27 @@ public class Consultar extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Consultar</title>");            
+            out.println("<title>Servlet Eliminar</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Listado de alumnos registrados</h1>"
-                    + "<br>"
-                    + "<table border='2'>"
-                    + "<tr>"
-                    + "<th>Boleta</th>"
-                    + "<th>Nombre Completo</th>"
-                    + "<th>Edad</th>"
-                    +"</tr>");
+            
             try{
-                int id,edad;
-                String nombre,appat,apmat;
+                int bol;
+                bol = Integer.parseInt(request.getParameter("boletaeliminada"));
+                System.out.println(bol);
+                String q = "DELETE FROM alumno WHERE idAlumno="+bol;
                 
-                String q = "select * from alumno";
+                set.executeUpdate(q);
+                out.println("<h1>Registro Eliminado</h>");
+                System.out.println("Dato Eliminado");
                 
-                set = con.createStatement();
-                rs = set.executeQuery(q);
-                
-                while(rs.next()){
-                    //Obtener cada dato
-                    id = rs.getInt("idAlumno");
-                    nombre = rs.getString("nom_alu");
-                    appat = rs.getString("appat_alu");
-                    apmat = rs.getString("apmat_alu");
-                    edad = rs.getInt("edad_alu");
-                    
-                    out.println("<tr>"
-                            + "<td>" + id + "<td/>"
-                            + "<td>" + nombre + " " + appat + " " + apmat + "<td/>"
-                            + "<td>" + edad + "<td/>"
-                            +"</tr>");
-                }
-                rs.close();
-                set.close();
-            }catch(Exception e){ 
+            }catch(Exception e){
+                System.out.println("Error: " + e.getMessage());
+                System.out.println("No se eliminó");
+                out.println("<h1>Ocurrió un error</h1>");
             }
-            out.println("</table>");
-            out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+            
+            out.println("<a href='index.html'>Regresar al Menú Principal<a/>");
             out.println("</body>");
             out.println("</html>");
         }
