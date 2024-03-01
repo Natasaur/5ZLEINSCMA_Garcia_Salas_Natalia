@@ -8,9 +8,7 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.Arrays;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,35 +19,18 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jakeg
  */
-public class Registro extends HttpServlet {
-    
-    //Servlet = Código en java que da una salida en html
-    /**
-     * Vamos a conectar a una base de datos 
-    */
-    
-    private Connection con;
-    //com es para establecer el objeto de conexción
-    private Statement set;
-    //El objeto statement es para poder definir las sentencias sql
-    //Crear una tabla, registrar un dato
-    private ResultSet rs;
-    //Este objeto es exclusivo de consultas
-    
-    //Se crea un tipo de constructor
+public class Actualizar extends HttpServlet {
 
-    /**
-     *
-     * @param scg
-     * @throws ServletException
-     */
-    @Override
+    private Connection con;
+    private Statement set;
+    private ResultSet rs;
+        
     public void init(ServletConfig scg) throws ServletException{ //ServletException porque no maneja una Exception normal
         //sirve para configurar el servicio
         //En este caso el servicio de la base de datos
         String url = "jdbc:mysql:3306//localhost/registroalumnos"; //java data base controller
                     //controlador:motorbd:puerto//IP/nombrebd
-        String userName = "root";
+        String username = "root";
         String password = "Pikachu_2231";
         
         try{
@@ -57,63 +38,61 @@ public class Registro extends HttpServlet {
             url = "jdbc:mysql://localhost/registroalumnos"; //java data base controller
             Class.forName("com.mysql.jdbc.Driver");
             //Se debe obtener el objeto de coneccion
-            con = DriverManager.getConnection(url,userName,password);
+            con = DriverManager.getConnection(url,username,password);
             set = con.createStatement();
             
             System.out.println("Conexion exitosa!");
-        }catch(ClassNotFoundException | SQLException e){
+        }catch(Exception e){
             System.out.println("No se conecto a la Base de Datos");
             System.out.println(e.getMessage());
-            System.out.println(Arrays.toString(e.getStackTrace()));
+            System.out.println(e.getStackTrace());
         }
     }
     
-    //Request = Petición, cuando se solicita información
-    //Response = 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             
-            //Obtener los pa´rametros del formulario
             String nom,appat,apmat;
-            int age = 0;
+            int edad;
+            int bol;
             
+            bol = Integer.parseInt(request.getParameter("bol"));
             nom = request.getParameter("nombre");
             appat = request.getParameter("appat");
             apmat = request.getParameter("apmat");
-            age = Integer.parseInt(request.getParameter("edad"));
-            
-            //System.out.println(nom);
-            //System.out.println(appat);
-            //System.out.println(apmat);
-            //System.out.println(edad);
-            
-            //Para conectar a la base de datos            
+            edad = Integer.parseInt(request.getParameter("edad"));
+                     
             try{
-                String q = "insert into alumno(nom_alu,appat_alu,apmat_alu,edad_alu)"
-                        +"values ('"+nom+"','"+appat+"','"+apmat+"',"+age+")";
-                
                 //Se debe preparar la sentencia
+                //Cambiar para actualizar
+                /*String q = "insert into alumno(nom_alu,appat_alu,apmat_alu,edad_alu)"
+                        +"values ('"+nom+"',"
+                        +"'"+appat+"','"+apmat+"',"+edad+")";*/
+                String q = "UPDATE alumno SET nom_alu = '"+nom+"' ,"
+                        + " appat_alu = '"+appat+"' , apmat_alu = '"+apmat+"' ,"
+                        + " edad_alu = "+edad+" WHERE idAlumno = "+bol+"";
+                
                 set.executeUpdate(q);
-                System.out.println("Registro éxitoso");
-                out.println("<h1>Alumno registrado con exito</h1>");
+                System.out.println("Registro actualizado con éxito");
+                out.println("<h1>Alumno actualizado con éxito</h1>");
+                out.println("<a href='index.html'>Regresar al Menú Principal</a>");
             }catch(Exception e){
-                System.out.println("Registro NO exitoso");
+                System.out.println("No se pudo actualizar");
                 out.println("<h1>El alumno no se pudo registrar</h1>");
                 out.println("<a href='index.html'>Regresar al Menú Principal</a>");
                 System.out.println(e.getMessage());
-                System.out.println(Arrays.toString(e.getStackTrace()));
+                System.out.println(e.getStackTrace());
             }
-            
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet Registro</title>");            
+            out.println("<title>Servlet Actualizar</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+            //out.println("<a href='index.html'>Regresar al Menú Principal</a>");
             out.println("</body>");
             out.println("</html>");
         }

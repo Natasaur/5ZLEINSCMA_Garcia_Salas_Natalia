@@ -13,7 +13,8 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
     <body>
         <div>   <!-- Crea un divisor -->
             <!-- REGISTRAR -->
-            <form name="formulario" action ="Registro" method="get">
+            <h2>REGISTRAR</h2>
+            <form name="formulario" action ="Registro" method="post">
                 <!-- Con get se visualizan los datos a enviar -->
                 <!-- Con post se ocultan los datos a enviar -->
                 
@@ -41,13 +42,53 @@ Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Html.html to edit thi
                 <input type="submit" name="enviar" value="Registrar Alumno">
                 <input type="reset" name="borrar" value="Borrar datos">
             </form>
+            <br>
+            
+            <!-- ACTUALIZAR -->
+            
+            <h2>ACTUALIZAR</h2>
+            <br>
+            <form name="formulario_actualizar" action ="Actualizar" method="get">
+                <label>Boleta: </label>
+                <br>
+                <input type="text" name="bol">
+                <br>
+                
+                <label>Nombre: </label>
+                <br>
+                <input type="text" name="nombre">
+
+                <br>
+                <label>Apellido Paterno: </label>
+                <br>
+                <input type="text" name="appat">
+                <br>
+
+                <label>Apellido Materno: </label>
+                <br>
+                <input type="text" name="apmat">
+                <br>
+
+                <label>Edad: </label>
+                <br>
+                <input type="text" name="edad">
+                <br>
+
+                <input type="submit" name="enviar" value="Actualizar Alumno">
+                <input type="reset" name="borrar" value="Borrar datos">
+            </form>
+            
+            
             
             <!-- CONSULTAR -->
             <br>
+            <h2>CONSULTAR</h2>
             <a href="Consultar">Consultar Lista</a>
             <br>
             
             <!-- ELIMINAR -->
+            <br>
+            <h2>ELIMINAR</h2>
             <form method="get" name="delete" action="Eliminar">
                 <br>
                 <label>Ingrese la boleta del estudiantes que deseas dar de baja</label>

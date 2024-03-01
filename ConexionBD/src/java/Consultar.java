@@ -21,16 +21,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class Consultar extends HttpServlet {
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
-    
     private Connection con;
     private Statement set;
     private ResultSet rs;
@@ -51,7 +41,7 @@ public class Consultar extends HttpServlet {
             con = DriverManager.getConnection(url,username,password);
             set = con.createStatement();
             
-            System.out.println("Conexion exitosa!");
+            System.out.println("Conexion a la Base de Datos exitosa!");
         }catch(Exception e){
             System.out.println("No se conecto a la Base de Datos");
             System.out.println(e.getMessage());
@@ -77,17 +67,17 @@ public class Consultar extends HttpServlet {
                     + "<th>Boleta</th>"
                     + "<th>Nombre Completo</th>"
                     + "<th>Edad</th>"
-                    +"</tr>");
+                    + "</tr>");
             try{
                 int id,edad;
                 String nombre,appat,apmat;
                 
-                String q = "select * from alumno";
+                String q = "SELECT * FROM alumno";
                 
                 set = con.createStatement();
                 rs = set.executeQuery(q);
                 
-                while(rs.next()){
+                while(rs.next()){ //Mientras que exista un dato siguiente
                     //Obtener cada dato
                     id = rs.getInt("idAlumno");
                     nombre = rs.getString("nom_alu");
@@ -96,10 +86,10 @@ public class Consultar extends HttpServlet {
                     edad = rs.getInt("edad_alu");
                     
                     out.println("<tr>"
-                            + "<td>" + id + "<td/>"
-                            + "<td>" + nombre + " " + appat + " " + apmat + "<td/>"
-                            + "<td>" + edad + "<td/>"
-                            +"</tr>");
+                            + "<td>" + id + "</td>"
+                            + "<td>" + nombre + " " + appat + " " + apmat + "</td>"
+                            + "<td>" + edad + "</td>"
+                            + "</tr>");
                 }
                 rs.close();
                 set.close();
