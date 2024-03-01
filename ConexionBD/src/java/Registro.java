@@ -114,6 +114,8 @@ public class Registro extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+            out.println("<br>");
+            out.println("<a href='Consultar'>Consultar Lista</a>");
             out.println("</body>");
             out.println("</html>");
         }

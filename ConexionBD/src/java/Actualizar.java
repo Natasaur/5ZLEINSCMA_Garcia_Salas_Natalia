@@ -78,7 +78,7 @@ public class Actualizar extends HttpServlet {
                 set.executeUpdate(q);
                 System.out.println("Registro actualizado con éxito");
                 out.println("<h1>Alumno actualizado con éxito</h1>");
-                out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+                //out.println("<a href='index.html'>Regresar al Menú Principal</a>");
             }catch(Exception e){
                 System.out.println("No se pudo actualizar");
                 out.println("<h1>El alumno no se pudo registrar</h1>");
@@ -92,7 +92,9 @@ public class Actualizar extends HttpServlet {
             out.println("<title>Servlet Actualizar</title>");            
             out.println("</head>");
             out.println("<body>");
-            //out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+            out.println("<a href='index.html'>Regresar al Menú Principal</a>");
+            out.println("<br>");
+            out.println("<a href='Consultar'>Consultar Lista</a>");
             out.println("</body>");
             out.println("</html>");
         }
