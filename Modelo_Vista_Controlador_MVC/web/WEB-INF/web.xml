@@ -8,6 +8,10 @@
         <servlet-name>validarUsuario</servlet-name>
         <servlet-class>Servlet.validarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>validarAlumno</servlet-name>
+        <servlet-class>Servlet.validarUsuario</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>guardarAlumno</servlet-name>
         <url-pattern>/guardarAlumno</url-pattern>
@@ -15,6 +19,10 @@
     <servlet-mapping>
         <servlet-name>validarUsuario</servlet-name>
         <url-pattern>/validarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>validarAlumno</servlet-name>
+        <url-pattern>/validarAlumno</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -14,31 +14,34 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class AccionesUsuario {
-    public boolean validarUsuario(String username,String pass){
+    public static boolean validar(String username,String pass){
         boolean valid = false;
         List<Usuario> usuarios = new ArrayList<Usuario>();
+        Usuario user = new Usuario();
         try{
             Connection con = Conexion.getConnection();
             
-            //Primero creamos una lista con todos los usuarios que tienen acceso
+            //Busca si el usuario ingresado coincide con alguno en la base de datos
             
-            String q = "select * from usuario";
+            String q = "select * from usuario where correo = ?";
             PreparedStatement ps = con.prepareStatement(q);
+            ps.setString(1,username);
             ResultSet rs = ps.executeQuery(q);
             
-            while(rs.next()){
-                Usuario user = new Usuario();
+            //Se validan las credenciales ingresadas
+            if(rs.next()){
                 user.setUser(rs.getString(1));
                 user.setPassword(rs.getString(2));
-                
-                usuarios.add(user);
             }
-            
-            
-            
+            if(user.getUser()==username && user.getPassword()==pass){
+                valid = true;
+            }else{
+                valid = false;
+            }
         }catch(Exception e){
-            
-            
+            System.out.println("Error: " + e.getMessage());
+            System.out.println("El usuario y/o contraseña son incorrectos");
         }
+        return valid;
     }
 }
