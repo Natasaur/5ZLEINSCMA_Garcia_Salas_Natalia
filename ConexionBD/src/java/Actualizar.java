@@ -68,9 +68,6 @@ public class Actualizar extends HttpServlet {
             try{
                 //Se debe preparar la sentencia
                 //Cambiar para actualizar
-                /*String q = "insert into alumno(nom_alu,appat_alu,apmat_alu,edad_alu)"
-                        +"values ('"+nom+"',"
-                        +"'"+appat+"','"+apmat+"',"+edad+")";*/
                 String q = "UPDATE alumno SET nom_alu = '"+nom+"' ,"
                         + " appat_alu = '"+appat+"' , apmat_alu = '"+apmat+"' ,"
                         + " edad_alu = "+edad+" WHERE idAlumno = "+bol+"";
@@ -78,7 +75,6 @@ public class Actualizar extends HttpServlet {
                 set.executeUpdate(q);
                 System.out.println("Registro actualizado con éxito");
                 out.println("<h1>Alumno actualizado con éxito</h1>");
-                //out.println("<a href='index.html'>Regresar al Menú Principal</a>");
             }catch(Exception e){
                 System.out.println("No se pudo actualizar");
                 out.println("<h1>El alumno no se pudo registrar</h1>");
