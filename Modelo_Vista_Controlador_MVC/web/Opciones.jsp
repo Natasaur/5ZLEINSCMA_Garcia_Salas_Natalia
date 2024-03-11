@@ -14,7 +14,10 @@
     </head>
     <body>
         <div>
+            <h1>Elija una opción</h1>
+            <br>
             <a href="inicio.jsp">Consultar Lista</a>
+            <br>
             <a href="registro.jsp">Registrar alumno a Extraordinario</a>
             <br>
         </div>

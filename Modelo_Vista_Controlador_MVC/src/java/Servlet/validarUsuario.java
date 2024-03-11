@@ -1,5 +1,8 @@
 package Servlet;
 
+import Controlador.Conexion;
+import Modelo.Usuario;
+import Controlador.AccionesUsuario;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -16,16 +19,22 @@ public class validarUsuario extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet validarAlumno</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet validarAlumno at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+            String user,pass;
+            
+            user = request.getParameter("user");
+            pass = request.getParameter("pass");
+            
+            Usuario current_user = new Usuario();
+            current_user.setUser(user);
+            current_user.setPassword(pass);
+            
+            boolean status = AccionesUsuario.validar(current_user);
+            
+            if(status==true){
+                response.sendRedirect("opciones.jsp");
+            }else{
+                response.sendRedirect("error_inicio_sesion.jsp");
+            }
         }
     }
 

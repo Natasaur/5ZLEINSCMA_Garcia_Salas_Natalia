@@ -54,7 +54,7 @@
                     %>
                 </tbody>
             </table>
-                <a href="index.html">Regresar al Menu Principal</a>    
+                <a href="opciones.jsp">Regresar al Menu Principal</a>    
             </div>
     </body>
 </html>
